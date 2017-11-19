@@ -716,6 +716,11 @@ class Offline {
                 Object.assign(response.headers, defaultHeaders, result.headers);
                 if (!_.isUndefined(result.body)) {
                   response.source = result.body;
+                  
+                  if (result.isBase64Encoded) {
+                    response.source = Buffer.from(result.body, 'base64');
+                    response.variety = 'buffer'
+                  }
                 }
               }
 
